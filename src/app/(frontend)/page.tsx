@@ -1,10 +1,10 @@
-import BoxLink from "@/components/nitro/BoxLink"
-import Button from "@/components/nitro/Button"
-import Footer from "@/components/nitro/Footer"
-import Header from "@/components/nitro/Header"
+import BoxLink from "@/components/ui/box-link"
+import Button from "@/components/ui/button"
+import Footer from "@/components/ui/footer"
+import Header from "@/components/ui/header"
 
-import { ProjectHighlight } from "@/components/nitro/ProjectHighlight"
-import { Wrapper } from "@/components/nitro/Wrapper"
+import { ProjectHighlight } from "@/components/ui/project-highlight"
+import { Wrapper } from "@/components/ui/wrapper"
 import { FiArrowRight } from "react-icons/fi"
 
 import design from "../../../public/Design_pixels.svg"
@@ -14,12 +14,21 @@ import tech from "../../../public/Tech_pixels.svg"
 import tiimilaiset from "../../../public/Tiimilaiset_pixels.svg"
 import tyokalut from "../../../public/Tyokalut_pixels.svg"
 import project from "../../../public/delivery.jpg"
+import { getPayload } from "payload"
+import configPromise from "@payload-config"
+import { getImageByTitle } from "./digitiimi/page"
 
 export default async function Home() {
+  const payload = await getPayload({ config: configPromise })
+
+  const teams = await payload.find({
+    collection: "teams",
+    draft: false,
+  })
+
   return (
-    <main>
-      <Header />
-      <section className="bg-[#292929] text-white py-16">
+    <>
+      <section className="bg-dark text-white py-16">
         <Wrapper>
           <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">
             Digitiimin portfolio
@@ -30,28 +39,33 @@ export default async function Home() {
           </p>
 
           <div className="flex justify-center mt-16 gap-10">
-            <BoxLink color="lime" title="Tiimiläiset" image={tiimilaiset} link="/team" />
-            <BoxLink color="lime" title="Palvelut" image={palvelut} link="/team" />
-            <BoxLink color="lime" title="Työkalut" image={tyokalut} link="/team" />
+            <BoxLink color="lime" title="Tiimiläiset" image={tiimilaiset} link="/digitiimi" />
+            <BoxLink color="lime" title="Palvelut" image={palvelut} link="/palvelut" />
+            <BoxLink color="lime" title="Työkalut" image={tyokalut} link="/tyokalut" />
           </div>
         </Wrapper>
       </section>
       <section className="my-16">
         <Wrapper>
-          <h2 className="font-darmaGothic text-[#222222] uppercase text-6xl font-black">
-            Digitiimi
-          </h2>
           <div className="flex justify-center mt-9 gap-10">
-            <BoxLink color="dark" title="Tech" image={tech} link="/team" />
-            <BoxLink color="dark" title="Insight" image={insight} link="/team" />
-            <BoxLink color="dark" title="Design" image={design} link="/team" />
+            {teams.docs?.map((doc) => {
+              return (
+                <BoxLink
+                  key={doc.id}
+                  color="dark"
+                  title={doc.title}
+                  image={getImageByTitle(doc.title)}
+                  link={`/digitiimi/${doc.id}`}
+                />
+              )
+            })}
           </div>
         </Wrapper>
       </section>
       <section className="my-16">
         <Wrapper>
           <div className="flex justify-between">
-            <h2 className="font-darmaGothic text-[#222222] uppercase text-6xl font-black">
+            <h2 className="font-darmaGothic text-dark uppercase text-6xl font-black">
               Tutustu töihimme
             </h2>
             <Button className="flex items-center gap-3 bg-lime">
@@ -86,7 +100,6 @@ export default async function Home() {
           </div>
         </Wrapper>
       </section>
-      <Footer />
-    </main>
+    </>
   )
 }

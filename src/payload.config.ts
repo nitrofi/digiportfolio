@@ -11,8 +11,6 @@ import { Media } from "./collections/Media"
 import { Pages } from "./collections/Pages"
 import { Posts } from "./collections/Posts"
 import { Users } from "./collections/Users"
-import { Footer } from "./Footer/config"
-import { Header } from "./Header/config"
 import { plugins } from "./plugins"
 import { defaultLexical } from "@/fields/defaultLexical"
 import { getServerSideURL } from "./utilities/getURL"
@@ -29,10 +27,10 @@ export default buildConfig({
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
-      beforeLogin: ["@/components/BeforeLogin"],
+      // beforeLogin: ["@/components/BeforeLogin"],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
-      beforeDashboard: ["@/components/BeforeDashboard"],
+      // beforeDashboard: ["@/components/BeforeDashboard"],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -70,7 +68,6 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Teams, Users, Cases, Services, Customers, Tags],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

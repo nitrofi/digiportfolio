@@ -1,23 +1,22 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next"
 
-import { PayloadRedirects } from '@/components/PayloadRedirects'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
-import { homeStatic } from '@/endpoints/seed/home-static'
+import { PayloadRedirects } from "@/components/payload-default/PayloadRedirects"
+import configPromise from "@payload-config"
+import { getPayload } from "payload"
+import { draftMode } from "next/headers"
+import React, { cache } from "react"
+import { homeStatic } from "@/endpoints/seed/home-static"
 
-import type { Page as PageType } from '@/payload-types'
+import type { Page as PageType } from "@/payload-types"
 
-import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero'
-import { generateMeta } from '@/utilities/generateMeta'
-import PageClient from './page.client'
+import { RenderBlocks } from "@/blocks/RenderBlocks"
+
+import { generateMeta } from "@/utilities/generateMeta"
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
-    collection: 'pages',
+    collection: "pages",
     draft: false,
     limit: 1000,
     overrideAccess: false,
@@ -25,7 +24,7 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return doc.slug !== "home"
     })
     .map(({ slug }) => {
       return { slug }
@@ -41,8 +40,8 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { slug = 'home' } = await paramsPromise
-  const url = '/' + slug
+  const { slug = "home" } = await paramsPromise
+  const url = "/" + slug
 
   let page: PageType | null
 
@@ -51,7 +50,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
+  if (!page && slug === "home") {
     page = homeStatic
   }
 
@@ -59,22 +58,18 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout } = page
+  const { layout } = page
 
   return (
-    <article className="pt-16 pb-24">
-      <PageClient />
-      {/* Allows redirects for valid pages too */}
+    <>
       <PayloadRedirects disableNotFound url={url} />
-
-      <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
-    </article>
+    </>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+  const { slug = "home" } = await paramsPromise
   const page = await queryPageBySlug({
     slug,
   })
@@ -88,7 +83,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'pages',
+    collection: "pages",
     draft,
     limit: 1,
     overrideAccess: draft,

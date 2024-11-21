@@ -1,23 +1,23 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next"
 
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
-import RichText from '@/components/RichText'
+import { RelatedPosts } from "@/blocks/RelatedPosts/Component"
+import { PayloadRedirects } from "@/components/payload-default/PayloadRedirects"
+import configPromise from "@payload-config"
+import { getPayload } from "payload"
+import { draftMode } from "next/headers"
+import React, { cache } from "react"
+import RichText from "@/components/payload-default/RichText"
 
-import type { Post } from '@/payload-types'
+import type { Post } from "@/payload-types"
 
-import { PostHero } from '@/heros/PostHero'
-import { generateMeta } from '@/utilities/generateMeta'
-import PageClient from './page.client'
+import { PostHero } from "@/heros/PostHero"
+import { generateMeta } from "@/utilities/generateMeta"
+import PageClient from "./page.client"
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
-    collection: 'posts',
+    collection: "posts",
     draft: false,
     limit: 1000,
     overrideAccess: false,
@@ -37,8 +37,8 @@ type Args = {
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
-  const { slug = '' } = await paramsPromise
-  const url = '/posts/' + slug
+  const { slug = "" } = await paramsPromise
+  const url = "/posts/" + slug
   const post = await queryPostBySlug({ slug })
 
   if (!post) return <PayloadRedirects url={url} />
@@ -64,7 +64,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         {post.relatedPosts && post.relatedPosts.length > 0 && (
           <RelatedPosts
             className="mt-12"
-            docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+            docs={post.relatedPosts.filter((post) => typeof post === "object")}
           />
         )}
       </div>
@@ -73,7 +73,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
+  const { slug = "" } = await paramsPromise
   const post = await queryPostBySlug({ slug })
 
   return generateMeta({ doc: post })
@@ -85,7 +85,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: "posts",
     draft,
     limit: 1,
     overrideAccess: draft,
