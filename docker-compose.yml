@@ -15,14 +15,12 @@ services:
     env_file:
       - .env
 
-  mongo:
-    image: mongo:latest
+  postgres:
+    image: postgres:16.1-alpine
     ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
+      - '5432:5432'
     volumes:
-      - data:/data/db
+      - data:/var/lib/postgresql/data
     logging:
       driver: none
 

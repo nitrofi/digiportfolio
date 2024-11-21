@@ -1,9 +1,9 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload"
 
-import { authenticated } from '../../access/authenticated'
+import { authenticated } from "../../access/authenticated"
 
 export const Users: CollectionConfig = {
-  slug: 'users',
+  slug: "users",
   access: {
     admin: authenticated,
     create: authenticated,
@@ -12,14 +12,35 @@ export const Users: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['name', 'email'],
-    useAsTitle: 'name',
+    defaultColumns: ["name", "email", "team"],
+    useAsTitle: "name",
   },
   auth: true,
   fields: [
     {
-      name: 'name',
-      type: 'text',
+      name: "name",
+      type: "text",
+    },
+    {
+      name: "image",
+      type: "upload",
+      relationTo: "media",
+    },
+    {
+      name: "title",
+      type: "text",
+    },
+    {
+      name: "team",
+      type: "relationship",
+      relationTo: "teams",
+    },
+    {
+      name: "tags",
+      type: "join",
+      on: "users",
+      collection: "tags",
+      maxDepth: 2,
     },
   ],
   timestamps: true,

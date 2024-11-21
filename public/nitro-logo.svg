@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 152 139.6">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #222;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path id="Vector" class="cls-1" d="M129.23,103.28h-43.3v-23.67l-19.86-10.18v33.84H22.77V0h43.3v23.67l19.86,10.18V.01h43.3v103.28h0ZM92.65,96.57h29.85V6.7h-29.85v38.12l-33.31-17.06V6.7h-29.85v89.86h29.85v-38.12l33.31,17.06v21.05h0Z"/>
+  <g id="Group">
+    <path id="Vector-2" data-name="Vector" class="cls-1" d="M34.42,112.56v26.66h-9.35l-18.2-20v20H0v-26.66h9.31l18.24,20.03v-20.03h6.87Z"/>
+    <path id="Vector_2" data-name="Vector 2" class="cls-1" d="M46.33,139.22h-6.87v-26.66h6.87v26.66h0Z"/>
+    <path id="Vector_3" data-name="Vector 3" class="cls-1" d="M81.98,118.32h-12.98v20.91h-6.87v-20.91h-12.98v-5.75h32.83v5.75Z"/>
+    <path id="Vector_4" data-name="Vector 4" class="cls-1" d="M110.23,131.3l4.92,7.93h-8.1l-4.32-7.12h-11.07v7.12h-6.87v-26.66h21c6.07,0,10.23,3.85,10.23,9.79,0,4.35-2.21,7.54-5.8,8.95h.01ZM91.69,126.36h12.21c2.06,0,5.26,0,5.26-4s-3.21-4.04-5.26-4.04h-12.21v8.04h0Z"/>
+    <path id="Vector_5" data-name="Vector 5" class="cls-1" d="M118.41,125.85c0-8.83,5.03-13.67,16.8-13.67s16.8,4.88,16.8,13.67-5.07,13.75-16.8,13.75-16.8-4.88-16.8-13.75ZM145.13,125.85c0-5.4-2.75-7.93-9.93-7.93s-9.92,2.47-9.92,7.93,2.78,8,9.92,8,9.93-2.55,9.93-8Z"/>
+  </g>
+</svg>
