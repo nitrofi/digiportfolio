@@ -1,16 +1,21 @@
 import React from "react"
 import Link from "next/link"
 import { MdOutlineDiamond } from "react-icons/md"
+import { Tag } from "@/payload-types"
 
 type Props = {
   title?: string
-  cases?: Array<{
-    title: string
-    id: string
-  }>
+  tags?:
+    | {
+        docs?: (number | Tag)[] | null
+        hasNextPage?: boolean | null
+      }
+    | null
+    | undefined
 }
 
-const ServiceHighlight = ({ title = "DIGITAALINEN TOIMINNALLINEN PALVELU", cases = [] }: Props) => {
+const ServiceHighlight = ({ title = "DIGITAALINEN TOIMINNALLINEN PALVELU", tags }: Props) => {
+  console.log(tags)
   return (
     <div className="relative bg-lime p-8 min-h-[400px] flex flex-col justify-between">
       {/* Timantti-ikoni */}
@@ -24,15 +29,16 @@ const ServiceHighlight = ({ title = "DIGITAALINEN TOIMINNALLINEN PALVELU", cases
 
         {/* Case-linkit */}
         <div className="flex flex-wrap gap-4">
-          {cases.map((caseItem, index) => (
-            <Link
-              key={index}
-              href={`/case/${caseItem.id}`}
-              className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors"
-            >
-              case
-            </Link>
-          ))}
+          {Array.isArray(tags?.docs) &&
+            tags.docs.map((tagItem: Tag, index) => (
+              <Link
+                key={index}
+                href={`/tagit/${tagItem.id}`}
+                className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors"
+              >
+                {tagItem.title}
+              </Link>
+            ))}
         </div>
       </div>
 

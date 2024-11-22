@@ -32,6 +32,9 @@ export interface Config {
     users: {
       tags: 'tags';
     };
+    services: {
+      tags: 'tags';
+    };
   };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -360,6 +363,7 @@ export interface Tag {
   teams?: (number | null) | Team;
   cases?: (number | null) | Case;
   users?: (number | null) | User;
+  services?: (number | null) | Service;
   updatedAt: string;
   createdAt: string;
 }
@@ -415,6 +419,10 @@ export interface Service {
   id: number;
   title?: string | null;
   cases?: (number | null) | Case;
+  tags?: {
+    docs?: (number | Tag)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1090,6 +1098,7 @@ export interface CasesSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   cases?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1113,6 +1122,7 @@ export interface TagsSelect<T extends boolean = true> {
   teams?: T;
   cases?: T;
   users?: T;
+  services?: T;
   updatedAt?: T;
   createdAt?: T;
 }

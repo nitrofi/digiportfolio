@@ -5,7 +5,7 @@ import tech from "../../../../public/Tech_pixels.svg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
 import ServiceHighlight from "@/components/ui/service-highlight"
-import { Case } from "@/payload-types"
+import { Case, Tag } from "@/payload-types"
 
 export function getImageByTitle(title: string) {
   if (title === "Tech") return tech
@@ -18,8 +18,11 @@ export default async function Digitiimi() {
 
   const services = await payload.find({
     collection: "services",
+    depth: 2,
     draft: false,
   })
+
+  console.log(services.docs[3].tags)
 
   return (
     <>
@@ -38,17 +41,7 @@ export default async function Digitiimi() {
         <Wrapper>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.docs?.map((doc) => {
-              const formattedCases =
-                doc.cases && Array.isArray(doc.cases)
-                  ? doc.cases.map((caseItem: Case) => ({
-                      id: String(caseItem.id),
-                      title: caseItem.title || "",
-                    }))
-                  : []
-
-              return (
-                <ServiceHighlight key={doc.id} title={doc.title || ""} cases={formattedCases} />
-              )
+              return <ServiceHighlight key={doc.id} title={doc.title || ""} tags={doc.tags} />
             })}
           </div>
         </Wrapper>
