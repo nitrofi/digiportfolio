@@ -8,9 +8,9 @@ import logo from "../../../public/nitro-logo.svg"
 const Footer = () => {
   return (
     <footer className="bg-lime py-20">
-      <Wrapper className="flex items-start gap-28">
+      <Wrapper className="flex items-start gap-28 max-lg:flex-col">
         <Image src={logo} alt="project" />
-        <div className="grid grid-cols-2 gap-14">
+        <div className="grid grid-cols-2 gap-14 max-lg:grid-cols-1 w-full">
           <nav>
             <span className="font-bold border-b-2 border-b-black pb-4 mb-8 flex justify-between items-center">
               Oikopolut <FiArrowRight className="text-xl" />
