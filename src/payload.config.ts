@@ -9,9 +9,7 @@ import { fileURLToPath } from "url"
 import { Teams } from "./collections/Teams"
 import { Media } from "./collections/Media"
 import { Users } from "./collections/Users"
-import { plugins } from "./plugins"
 import { defaultLexical } from "@/fields/defaultLexical"
-import { getServerSideURL } from "./utilities/getURL"
 import { Services } from "./collections/Services"
 import { Cases } from "./collections/Cases"
 import { Customers } from "./collections/Customers"
@@ -65,9 +63,7 @@ export default buildConfig({
     },
   }),
   collections: [Media, Teams, Users, Cases, Services, Customers, Tags],
-  cors: [getServerSideURL()].filter(Boolean),
   plugins: [
-    ...plugins,
     // storage-adapter-placeholder
   ],
   secret: process.env.PAYLOAD_SECRET,

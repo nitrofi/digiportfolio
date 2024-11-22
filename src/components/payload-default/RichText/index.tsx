@@ -1,7 +1,7 @@
-import { cn } from "@/utilities/cn"
 import React from "react"
 
 import { serializeLexical } from "./serialize"
+import clsx from "clsx"
 
 type Props = {
   className?: string
@@ -22,7 +22,7 @@ const RichText: React.FC<Props> = ({
 
   return (
     <div
-      className={cn(
+      className={clsx(
         {
           "container ": enableGutter,
           "max-w-none": !enableGutter,

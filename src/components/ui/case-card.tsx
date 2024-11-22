@@ -1,21 +1,15 @@
 import React from "react"
-import { Case, Customer, Media } from "@/payload-types"
+import { Case, Media } from "@/payload-types"
 import Image from "next/image"
-import Button from "./button"
+import Link from "next/link"
 
-type Props = {
-  case: Case
-}
-
-const CaseCard = ({ case: caseItem }: Props) => {
+const CaseCard = ({ case: caseItem }: { case: Case }) => {
   if (typeof caseItem.customer === "number") {
     return null
   }
 
-  console.log(caseItem.image)
-
   return (
-    <article className="flex flex-col gap-3">
+    <Link href={`/cases/${caseItem.id}`} className="flex flex-col gap-3">
       {caseItem.image && (
         <div className="aspect-video relative bg-gray-100">
           <Image
@@ -38,7 +32,7 @@ const CaseCard = ({ case: caseItem }: Props) => {
           Laajuus {caseItem.wideness || "1"}
         </div>
       </div>
-    </article>
+    </Link>
   )
 }
 

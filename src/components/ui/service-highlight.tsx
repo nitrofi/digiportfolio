@@ -4,19 +4,15 @@ import { MdOutlineDiamond } from "react-icons/md"
 import { Service, Tag } from "@/payload-types"
 
 const ServiceHighlight = ({ service }: { service: Service }) => {
-  console.log(service)
   return (
     <div className="relative bg-lime p-8 min-h-[400px] flex flex-col justify-between">
-      {/* Timantti-ikoni */}
       <div className="mb-6">
         <MdOutlineDiamond className="w-12 h-12 text-black" />
       </div>
 
-      {/* Otsikko */}
       <div className="space-y-8">
         <h2 className="text-4xl font-bold text-black leading-tight">{service.title}</h2>
 
-        {/* Case-linkit */}
         <div className="flex flex-wrap gap-4">
           {Array.isArray(service.tags?.docs) &&
             service.tags.docs.map((tagItem: Tag, index) => (
@@ -31,7 +27,6 @@ const ServiceHighlight = ({ service }: { service: Service }) => {
         </div>
       </div>
 
-      {/* Nuoli-ikoni oikeassa alakulmassa */}
       <Link href={`/services/${service.id}`} className="ml-auto">
         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
           <span className="text-2xl">→</span>

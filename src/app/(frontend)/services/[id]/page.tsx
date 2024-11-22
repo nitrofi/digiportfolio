@@ -24,8 +24,6 @@ export default async function Page({ params: paramsPromise }: Args) {
     depth: 2,
   })
 
-  console.log(service.cases)
-
   if (!service) return notFound()
 
   return (

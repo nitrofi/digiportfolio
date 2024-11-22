@@ -64,5 +64,9 @@ export const Cases: CollectionConfig = {
         position: "sidebar",
       },
     },
+    {
+      name: "keypoints",
+      type: "richText",
+    },
   ],
 }

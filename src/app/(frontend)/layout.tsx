@@ -2,14 +2,12 @@ import type { Metadata } from "next"
 
 import React from "react"
 
-import { AdminBar } from "@/components/payload-default/AdminBar"
-
 import { LivePreviewListener } from "@/components/payload-default/LivePreviewListener"
-import { mergeOpenGraph } from "@/utilities/mergeOpenGraph"
+
 import { draftMode } from "next/headers"
 
 import "./globals.css"
-import { getServerSideURL } from "@/utilities/getURL"
+
 import Footer from "@/components/ui/footer"
 import Header from "@/components/ui/header"
 
@@ -39,8 +37,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
   twitter: {
     card: "summary_large_image",
     creator: "@payloadcms",

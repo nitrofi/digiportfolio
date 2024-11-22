@@ -9,7 +9,7 @@ const ServiceSearch = () => {
         <div className="relative flex-1">
           <input
             type="text"
-            placeholder="Etsi palvelua"
+            placeholder="Etsi casea"
             className="w-full py-3 px-4 pr-12 rounded-lg bg-white text-dark"
           />
           <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-xl text-gray-400" />
