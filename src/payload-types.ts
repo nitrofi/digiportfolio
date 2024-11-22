@@ -32,7 +32,11 @@ export interface Config {
     users: {
       tags: 'tags';
     };
+    cases: {
+      tags: 'tags';
+    };
     services: {
+      cases: 'cases';
       tags: 'tags';
     };
   };
@@ -377,7 +381,7 @@ export interface Tag {
   id: number;
   title?: string | null;
   teams?: (number | null) | Team;
-  cases?: (number | null) | Case;
+  cases?: (number | Case)[] | null;
   users?: (number | null) | User;
   services?: (number | null) | Service;
   updatedAt: string;
@@ -390,6 +394,7 @@ export interface Tag {
 export interface Case {
   id: number;
   title?: string | null;
+  image?: (number | null) | Media;
   customer?: (number | null) | Customer;
   services?: (number | null) | Service;
   startedAt?: string | null;
@@ -412,6 +417,10 @@ export interface Case {
   wideness?: ('low' | 'medium' | 'high') | null;
   isPublic?: boolean | null;
   team?: (number | null) | User;
+  tags?: {
+    docs?: (number | Tag)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -434,7 +443,11 @@ export interface Customer {
 export interface Service {
   id: number;
   title?: string | null;
-  cases?: (number | null) | Case;
+  description?: string | null;
+  cases?: {
+    docs?: (number | Case)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   tags?: {
     docs?: (number | Tag)[] | null;
     hasNextPage?: boolean | null;
@@ -1098,6 +1111,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface CasesSelect<T extends boolean = true> {
   title?: T;
+  image?: T;
   customer?: T;
   services?: T;
   startedAt?: T;
@@ -1106,6 +1120,7 @@ export interface CasesSelect<T extends boolean = true> {
   wideness?: T;
   isPublic?: T;
   team?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1115,6 +1130,7 @@ export interface CasesSelect<T extends boolean = true> {
  */
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
   cases?: T;
   tags?: T;
   updatedAt?: T;

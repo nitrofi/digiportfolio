@@ -41,7 +41,7 @@ export default async function Digitiimi() {
         <Wrapper>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.docs?.map((doc) => {
-              return <ServiceHighlight key={doc.id} title={doc.title || ""} tags={doc.tags} />
+              return <ServiceHighlight key={doc.id} service={doc} />
             })}
           </div>
         </Wrapper>

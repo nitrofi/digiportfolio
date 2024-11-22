@@ -1,12 +1,10 @@
 import React from "react"
 import configPromise from "@payload-config"
 import { getPayload } from "payload"
-import Footer from "@/components/ui/footer"
 import { Wrapper } from "@/components/ui/wrapper"
-import Header from "@/components/ui/header"
 import { notFound } from "next/navigation"
-import PersonCard from "@/components/ui/person-card"
-import { User } from "@/payload-types"
+import ServiceSearch from "@/components/ui/service-search"
+import CaseCard from "@/components/ui/case-card"
 
 type Args = {
   params: Promise<{
@@ -20,31 +18,43 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!id) return notFound()
 
-  const team = await payload.findByID({
-    collection: "teams",
+  const service = await payload.findByID({
+    collection: "services",
     id,
     depth: 2,
   })
 
-  if (!team) return notFound()
+  console.log(service.cases)
 
-  const members = Array.isArray(team.members)
-    ? (team.members as User[])
-    : ([team.members].filter(Boolean) as unknown as User[])
+  if (!service) return notFound()
 
   return (
-    <section className="bg-dark text-white py-16">
-      <Wrapper>
-        <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">{team.title}</h1>
-        <p className="font-bold max-w-3xl">
-          Ilman ihmisiä ei olisi luovaa hybriditoimistoa. Tutustu Nitron poikkeuksellisen luovaan,
-          osaavaan ja hauskaan asiantuntijoiden joukkoon.
-        </p>
+    <>
+      <section className="bg-dark text-white py-16">
+        <Wrapper className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">
+              {service.title}
+            </h1>
+            <p className="font-bold max-w-3xl">{service.description}</p>
+          </div>
+          <ServiceSearch />
+        </Wrapper>
+      </section>
 
-        <div className="grid grid-cols-3 gap-10 mt-16">
-          {members?.map((member: User) => <PersonCard key={member.id} user={member} />)}
-        </div>
-      </Wrapper>
-    </section>
+      <section className="py-16">
+        <Wrapper>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Array.isArray(service.cases?.docs) &&
+              service.cases.docs.map((caseItem) => {
+                if (typeof caseItem === "number") {
+                  return null
+                }
+                return <CaseCard key={caseItem.id} case={caseItem} />
+              })}
+          </div>
+        </Wrapper>
+      </section>
+    </>
   )
 }

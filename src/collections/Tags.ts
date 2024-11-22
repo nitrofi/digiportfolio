@@ -19,6 +19,8 @@ export const Tags: CollectionConfig = {
       name: "cases",
       type: "relationship",
       relationTo: "cases",
+      hasMany: true,
+      maxDepth: 2,
     },
     {
       name: "users",

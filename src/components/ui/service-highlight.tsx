@@ -1,21 +1,10 @@
 import React from "react"
 import Link from "next/link"
 import { MdOutlineDiamond } from "react-icons/md"
-import { Tag } from "@/payload-types"
+import { Service, Tag } from "@/payload-types"
 
-type Props = {
-  title?: string
-  tags?:
-    | {
-        docs?: (number | Tag)[] | null
-        hasNextPage?: boolean | null
-      }
-    | null
-    | undefined
-}
-
-const ServiceHighlight = ({ title = "DIGITAALINEN TOIMINNALLINEN PALVELU", tags }: Props) => {
-  console.log(tags)
+const ServiceHighlight = ({ service }: { service: Service }) => {
+  console.log(service)
   return (
     <div className="relative bg-lime p-8 min-h-[400px] flex flex-col justify-between">
       {/* Timantti-ikoni */}
@@ -25,12 +14,12 @@ const ServiceHighlight = ({ title = "DIGITAALINEN TOIMINNALLINEN PALVELU", tags 
 
       {/* Otsikko */}
       <div className="space-y-8">
-        <h2 className="text-4xl font-bold text-black leading-tight">{title}</h2>
+        <h2 className="text-4xl font-bold text-black leading-tight">{service.title}</h2>
 
         {/* Case-linkit */}
         <div className="flex flex-wrap gap-4">
-          {Array.isArray(tags?.docs) &&
-            tags.docs.map((tagItem: Tag, index) => (
+          {Array.isArray(service.tags?.docs) &&
+            service.tags.docs.map((tagItem: Tag, index) => (
               <Link
                 key={index}
                 href={`/tagit/${tagItem.id}`}
@@ -43,11 +32,11 @@ const ServiceHighlight = ({ title = "DIGITAALINEN TOIMINNALLINEN PALVELU", tags 
       </div>
 
       {/* Nuoli-ikoni oikeassa alakulmassa */}
-      <div className="absolute bottom-8 right-8">
+      <Link href={`/services/${service.id}`} className="ml-auto">
         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
           <span className="text-2xl">→</span>
         </div>
-      </div>
+      </Link>
     </div>
   )
 }

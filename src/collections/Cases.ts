@@ -2,10 +2,18 @@ import { CollectionConfig } from "payload"
 
 export const Cases: CollectionConfig = {
   slug: "cases",
+  admin: {
+    useAsTitle: "title",
+  },
   fields: [
     {
       name: "title",
       type: "text",
+    },
+    {
+      name: "image",
+      type: "upload",
+      relationTo: "media",
     },
     {
       name: "customer",
@@ -43,6 +51,18 @@ export const Cases: CollectionConfig = {
       name: "team",
       type: "relationship",
       relationTo: "users",
+    },
+    {
+      name: "tags",
+      type: "join",
+      collection: "tags",
+      on: "cases",
+      hasMany: true,
+      maxDepth: 2,
+      admin: {
+        description: "Tags for the case",
+        position: "sidebar",
+      },
     },
   ],
 }

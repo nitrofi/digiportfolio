@@ -8,8 +8,6 @@ import { fileURLToPath } from "url"
 
 import { Teams } from "./collections/Teams"
 import { Media } from "./collections/Media"
-import { Pages } from "./collections/Pages"
-import { Posts } from "./collections/Posts"
 import { Users } from "./collections/Users"
 import { plugins } from "./plugins"
 import { defaultLexical } from "@/fields/defaultLexical"
@@ -66,7 +64,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || "",
     },
   }),
-  collections: [Pages, Posts, Media, Teams, Users, Cases, Services, Customers, Tags],
+  collections: [Media, Teams, Users, Cases, Services, Customers, Tags],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,

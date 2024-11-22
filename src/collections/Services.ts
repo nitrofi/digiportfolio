@@ -11,9 +11,16 @@ export const Services: CollectionConfig = {
       type: "text",
     },
     {
+      name: "description",
+      type: "textarea",
+    },
+    {
       name: "cases",
-      type: "relationship",
-      relationTo: "cases",
+      type: "join",
+      collection: "cases",
+      on: "services",
+      hasMany: true,
+      maxDepth: 2,
     },
     {
       name: "tags",
@@ -21,6 +28,7 @@ export const Services: CollectionConfig = {
       collection: "tags",
       on: "services",
       hasMany: true,
+      maxDepth: 2,
       admin: {
         description: "Tags for the service",
         position: "sidebar",
