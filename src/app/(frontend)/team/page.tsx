@@ -43,7 +43,7 @@ export default async function Digitiimi() {
                   color="dark"
                   title={doc.title}
                   image={getImageByTitle(doc.title)}
-                  link={`/digitiimi/${doc.id}`}
+                  link={`/team/${doc.id}`}
                 />
               )
             })}

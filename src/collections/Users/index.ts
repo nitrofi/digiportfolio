@@ -36,6 +36,14 @@ export const Users: CollectionConfig = {
       relationTo: "teams",
     },
     {
+      name: "startedAt",
+      type: "date",
+    },
+    {
+      name: "bio",
+      type: "richText",
+    },
+    {
       name: "tags",
       type: "join",
       on: "users",

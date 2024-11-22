@@ -1,7 +1,7 @@
-import { cn } from '@/utilities/cn'
-import React from 'react'
+import { cn } from "@/utilities/cn"
+import React from "react"
 
-import { serializeLexical } from './serialize'
+import { serializeLexical } from "./serialize"
 
 type Props = {
   className?: string
@@ -24,17 +24,17 @@ const RichText: React.FC<Props> = ({
     <div
       className={cn(
         {
-          'container ': enableGutter,
-          'max-w-none': !enableGutter,
-          'mx-auto prose dark:prose-invert ': enableProse,
+          "container ": enableGutter,
+          "max-w-none": !enableGutter,
+          "mx-auto ": enableProse,
         },
         className,
       )}
     >
       {content &&
         !Array.isArray(content) &&
-        typeof content === 'object' &&
-        'root' in content &&
+        typeof content === "object" &&
+        "root" in content &&
         serializeLexical({ nodes: content?.root?.children })}
     </div>
   )

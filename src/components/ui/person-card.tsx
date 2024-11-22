@@ -2,13 +2,14 @@ import { Media, User } from "@/payload-types"
 import Image from "next/image"
 import React from "react"
 import TagLink from "./tag-link"
+import Link from "next/link"
 
 const PersonCard = (props: { user: User }) => {
   const { user } = props
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div>
+      <Link href={`/team/members/${user.id}`}>
         {user.image && (
           <Image
             src={(user.image as Media).url ?? ""}
@@ -18,7 +19,7 @@ const PersonCard = (props: { user: User }) => {
           />
         )}
         {!user.image && <div className="w-full h-full bg-gray-200"></div>}
-      </div>
+      </Link>
       <div>
         <h3 className="text-5xl font-bold text-lime font-darmaGothic uppercase">{user.name}</h3>
         <p className="text-base font-bold">{user.title}</p>

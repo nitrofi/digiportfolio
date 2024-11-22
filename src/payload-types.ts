@@ -338,6 +338,22 @@ export interface User {
   image?: (number | null) | Media;
   title?: string | null;
   team?: (number | null) | Team;
+  startedAt?: string | null;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   tags?: {
     docs?: (number | Tag)[] | null;
     hasNextPage?: boolean | null;
@@ -1063,6 +1079,8 @@ export interface UsersSelect<T extends boolean = true> {
   image?: T;
   title?: T;
   team?: T;
+  startedAt?: T;
+  bio?: T;
   tags?: T;
   updatedAt?: T;
   createdAt?: T;

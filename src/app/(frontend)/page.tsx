@@ -1,22 +1,17 @@
 import BoxLink from "@/components/ui/box-link"
 import Button from "@/components/ui/button"
-import Footer from "@/components/ui/footer"
-import Header from "@/components/ui/header"
 
 import { ProjectHighlight } from "@/components/ui/project-highlight"
 import { Wrapper } from "@/components/ui/wrapper"
 import { FiArrowRight } from "react-icons/fi"
 
-import design from "../../../public/Design_pixels.svg"
-import insight from "../../../public/Insight_pixels.svg"
 import palvelut from "../../../public/Palvelut_pixels.svg"
-import tech from "../../../public/Tech_pixels.svg"
 import tiimilaiset from "../../../public/Tiimilaiset_pixels.svg"
 import tyokalut from "../../../public/Tyokalut_pixels.svg"
 import project from "../../../public/delivery.jpg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
-import { getImageByTitle } from "./digitiimi/page"
+import { getImageByTitle } from "./team/page"
 
 export default async function Home() {
   const payload = await getPayload({ config: configPromise })
@@ -37,17 +32,16 @@ export default async function Home() {
             Ilman ihmisiä ei olisi luovaa hybriditoimistoa. Tutustu Nitron poikkeuksellisen luovaan,
             osaavaan ja hauskaan asiantuntijoiden joukkoon.
           </p>
-
-          <div className="flex justify-center mt-16 gap-10">
-            <BoxLink color="lime" title="Tiimiläiset" image={tiimilaiset} link="/digitiimi" />
-            <BoxLink color="lime" title="Palvelut" image={palvelut} link="/palvelut" />
-            <BoxLink color="lime" title="Työkalut" image={tyokalut} link="/tyokalut" />
+          <div className="flex justify-center mt-16 gap-10 max-md:flex-col">
+            <BoxLink color="lime" title="Tiimiläiset" image={tiimilaiset} link="/team" />
+            <BoxLink color="lime" title="Palvelut" image={palvelut} link="/services" />
+            <BoxLink color="lime" title="Työkalut" image={tyokalut} link="/tools" />
           </div>
         </Wrapper>
       </section>
       <section className="my-16">
         <Wrapper>
-          <div className="flex justify-center mt-9 gap-10">
+          <div className="flex justify-center mt-9 gap-10 max-md:flex-col">
             {teams.docs?.map((doc) => {
               return (
                 <BoxLink
@@ -55,7 +49,7 @@ export default async function Home() {
                   color="dark"
                   title={doc.title}
                   image={getImageByTitle(doc.title)}
-                  link={`/digitiimi/${doc.id}`}
+                  link={`/team/${doc.id}`}
                 />
               )
             })}

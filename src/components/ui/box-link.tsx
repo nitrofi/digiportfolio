@@ -17,7 +17,7 @@ const BoxLink = (props: Props) => {
     <Link
       href={props.link}
       className={clsx(
-        "p-8 flex items-center flex-col gap-6 w-1/3",
+        "p-8 flex items-center flex-col gap-6 w-1/3 max-md:w-full",
         props.color === "lime" && "bg-lime",
         props.color === "dark" && "bg-dark",
       )}
