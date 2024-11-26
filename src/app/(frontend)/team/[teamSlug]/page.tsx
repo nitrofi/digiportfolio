@@ -1,36 +1,38 @@
 import React from "react"
 import configPromise from "@payload-config"
 import { getPayload } from "payload"
-import Footer from "@/components/ui/footer"
 import { Wrapper } from "@/components/ui/wrapper"
-import Header from "@/components/ui/header"
 import { notFound } from "next/navigation"
 import PersonCard from "@/components/ui/person-card"
 import { User } from "@/payload-types"
 
-type Args = {
-  params: Promise<{
-    id?: string
-  }>
-}
-
-export default async function Page({ params: paramsPromise }: Args) {
-  const { id } = await paramsPromise
+export default async function Page({
+  params: paramsPromise,
+}: {
+  params: Promise<{ teamSlug: string }>
+}) {
+  const { teamSlug } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
-  if (!id) return notFound()
+  if (!teamSlug) return notFound()
 
-  const team = await payload.findByID({
+  const teams = await payload.find({
     collection: "teams",
-    id,
+    where: {
+      slug: {
+        equals: teamSlug,
+      },
+    },
     depth: 2,
   })
 
+  const team = teams.docs[0]
+
   if (!team) return notFound()
 
-  const members = Array.isArray(team.members)
-    ? (team.members as User[])
-    : ([team.members].filter(Boolean) as unknown as User[])
+  const members = Array.isArray(team.teamUsers?.docs)
+    ? (team.teamUsers.docs as User[])
+    : ([team.teamUsers?.docs].filter(Boolean) as unknown as User[])
 
   return (
     <section className="bg-dark text-white py-16">

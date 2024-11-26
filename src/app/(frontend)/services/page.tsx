@@ -5,7 +5,6 @@ import tech from "../../../../public/Tech_pixels.svg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
 import ServiceHighlight from "@/components/ui/service-highlight"
-import { Case, Tag } from "@/payload-types"
 
 export function getImageByTitle(title: string) {
   if (title === "Tech") return tech
@@ -23,27 +22,21 @@ export default async function Digitiimi() {
   })
 
   return (
-    <>
-      <section className="bg-dark text-white py-16">
-        <Wrapper>
-          <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">
-            Tuotteet/Palvelut
-          </h1>
-          <p className="font-bold max-w-3xl">
-            Ilman ihmisiä ei olisi luovaa hybriditoimistoa. Tutustu Nitron poikkeuksellisen luovaan,
-            osaavaan ja hauskaan asiantuntijoiden joukkoon.
-          </p>
-        </Wrapper>
-      </section>
-      <section className="py-16 bg-dark">
-        <Wrapper>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.docs?.map((doc) => {
-              return <ServiceHighlight key={doc.id} service={doc} />
-            })}
-          </div>
-        </Wrapper>
-      </section>
-    </>
+    <section className="bg-dark text-white py-16">
+      <Wrapper>
+        <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">
+          Tuotteet/Palvelut
+        </h1>
+        <p className="font-bold max-w-3xl">
+          Ilman ihmisiä ei olisi luovaa hybriditoimistoa. Tutustu Nitron poikkeuksellisen luovaan,
+          osaavaan ja hauskaan asiantuntijoiden joukkoon.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {services.docs?.map((doc) => {
+            return <ServiceHighlight key={doc.id} service={doc} />
+          })}
+        </div>
+      </Wrapper>
+    </section>
   )
 }

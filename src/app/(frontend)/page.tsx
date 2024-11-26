@@ -12,12 +12,18 @@ import project from "../../../public/delivery.jpg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
 import { getImageByTitle } from "./team/page"
+import CaseCard from "@/components/ui/project-card"
 
 export default async function Home() {
   const payload = await getPayload({ config: configPromise })
 
   const teams = await payload.find({
     collection: "teams",
+    draft: false,
+  })
+
+  const projects = await payload.find({
+    collection: "projects",
     draft: false,
   })
 
@@ -33,7 +39,7 @@ export default async function Home() {
             osaavaan ja hauskaan asiantuntijoiden joukkoon.
           </p>
           <div className="flex justify-center mt-16 gap-10 max-md:flex-col">
-            <BoxLink color="lime" title="Tiimiläiset" image={tiimilaiset} link="/team" />
+            <BoxLink color="lime" title="Digitiimit" image={tiimilaiset} link="/team" />
             <BoxLink color="lime" title="Palvelut" image={palvelut} link="/services" />
             <BoxLink color="lime" title="Työkalut" image={tyokalut} link="/tools" />
           </div>
@@ -41,7 +47,10 @@ export default async function Home() {
       </section>
       <section className="my-16">
         <Wrapper>
-          <div className="flex justify-center mt-9 gap-10 max-md:flex-col">
+          <h2 className="font-darmaGothic text-dark uppercase text-6xl font-black mb-4">
+            Digitiimit
+          </h2>
+          <div className="flex justify-center gap-10 max-md:flex-col">
             {teams.docs?.map((doc) => {
               return (
                 <BoxLink
@@ -49,7 +58,7 @@ export default async function Home() {
                   color="dark"
                   title={doc.title}
                   image={getImageByTitle(doc.title)}
-                  link={`/team/${doc.id}`}
+                  link={`/team/${doc.slug}`}
                 />
               )
             })}
@@ -58,39 +67,13 @@ export default async function Home() {
       </section>
       <section className="my-16">
         <Wrapper>
-          <div className="flex justify-between">
-            <h2 className="font-darmaGothic text-dark uppercase text-6xl font-black">
-              Tutustu töihimme
-            </h2>
-            <Button className="flex items-center gap-3 bg-lime">
-              Katso kaikki työt <FiArrowRight />
-            </Button>
-          </div>
-          <div className="grid grid-cols-3 mt-9 gap-10">
-            <ProjectHighlight
-              image={project}
-              title="Brändi ja strategia"
-              customer="Lumme Energia"
-              startedAt="02/2024"
-            />
-            <ProjectHighlight
-              image={project}
-              title="Mobiili appin suunnittelu"
-              customer="Lumme Energia"
-              startedAt="02/2024"
-            />
-            <ProjectHighlight
-              image={project}
-              title="Verkkosivu uudistus"
-              customer="Lumme Energia"
-              startedAt="02/2024"
-            />
-            <ProjectHighlight
-              image={project}
-              title="Käyttäjäpolkujen päivitys"
-              customer="Lumme Energia"
-              startedAt="02/2024"
-            />
+          <h2 className="font-darmaGothic text-dark uppercase text-6xl font-black mb-4">
+            Tutustu töihimme
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.docs?.map((doc) => {
+              return <CaseCard key={doc.id} project={doc} />
+            })}
           </div>
         </Wrapper>
       </section>

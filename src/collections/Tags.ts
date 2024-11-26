@@ -1,7 +1,12 @@
+import { slugField } from "@/fields/slug"
 import { CollectionConfig } from "payload"
 
 export const Tags: CollectionConfig = {
   slug: "tags",
+  labels: {
+    singular: "Tagi",
+    plural: "Tagit",
+  },
   admin: {
     useAsTitle: "title",
   },
@@ -16,21 +21,24 @@ export const Tags: CollectionConfig = {
       relationTo: "teams",
     },
     {
-      name: "cases",
+      name: "projects",
       type: "relationship",
-      relationTo: "cases",
+      relationTo: "projects",
       hasMany: true,
       maxDepth: 2,
     },
     {
       name: "users",
-      type: "relationship",
-      relationTo: "users",
+      type: "join",
+      collection: "users",
+      on: "tags",
+      hasMany: true,
     },
     {
       name: "services",
       type: "relationship",
       relationTo: "services",
     },
+    ...slugField("title"),
   ],
 }

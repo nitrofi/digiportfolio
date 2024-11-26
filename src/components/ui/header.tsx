@@ -52,7 +52,7 @@ const Header = () => {
             <ul className="flex gap-6">
               <li>
                 <Link href="/team" className="hover:text-lime transition-colors">
-                  Tiimiläiset
+                  Digitiimit
                 </Link>
               </li>
               <li>
@@ -66,8 +66,8 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/cases" className="hover:text-lime transition-colors">
-                  Caset
+                <Link href="/projects" className="hover:text-lime transition-colors">
+                  Projektit
                 </Link>
               </li>
             </ul>
@@ -92,7 +92,7 @@ const Header = () => {
                         onClick={() => setIsMenuOpen(false)}
                         className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
                       >
-                        Tiimiläiset
+                        Digitiimit
                       </Link>
                     </li>
                     <li>
@@ -115,11 +115,11 @@ const Header = () => {
                     </li>
                     <li>
                       <Link
-                        href="/cases"
+                        href="/projects"
                         onClick={() => setIsMenuOpen(false)}
                         className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
                       >
-                        Caset
+                        Projektit
                       </Link>
                     </li>
                   </ul>

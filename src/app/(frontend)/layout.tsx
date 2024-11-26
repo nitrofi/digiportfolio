@@ -10,6 +10,7 @@ import "./globals.css"
 
 import Footer from "@/components/ui/footer"
 import Header from "@/components/ui/header"
+import Breadcrumbs from "@/components/ui/breadcrumbs"
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -22,13 +23,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="stylesheet" href="https://use.typekit.net/vwh7frp.css" />
       </head>
       <body className="font-rigid">
-        {/* <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          /> */}
         <LivePreviewListener />
         <Header />
+        <Breadcrumbs />
         {children}
         <Footer />
       </body>

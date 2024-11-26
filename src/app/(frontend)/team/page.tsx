@@ -26,7 +26,7 @@ export default async function Digitiimi() {
     <>
       <section className="bg-dark text-white py-16">
         <Wrapper>
-          <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">Digitiimi</h1>
+          <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">Digitiimit</h1>
           <p className="font-bold max-w-3xl">
             Ilman ihmisiä ei olisi luovaa hybriditoimistoa. Tutustu Nitron poikkeuksellisen luovaan,
             osaavaan ja hauskaan asiantuntijoiden joukkoon.
@@ -43,7 +43,7 @@ export default async function Digitiimi() {
                   color="dark"
                   title={doc.title}
                   image={getImageByTitle(doc.title)}
-                  link={`/team/${doc.id}`}
+                  link={`/team/${doc.slug}`}
                 />
               )
             })}

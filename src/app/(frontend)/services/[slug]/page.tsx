@@ -4,25 +4,31 @@ import { getPayload } from "payload"
 import { Wrapper } from "@/components/ui/wrapper"
 import { notFound } from "next/navigation"
 import ServiceSearch from "@/components/ui/service-search"
-import CaseCard from "@/components/ui/case-card"
+import ProjectCard from "@/components/ui/project-card"
 
 type Args = {
   params: Promise<{
-    id?: string
+    slug?: string
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { id } = await paramsPromise
+  const { slug } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
-  if (!id) return notFound()
+  if (!slug) return notFound()
 
-  const service = await payload.findByID({
+  const services = await payload.find({
     collection: "services",
-    id,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
     depth: 2,
   })
+
+  const service = services.docs[0]
 
   if (!service) return notFound()
 
@@ -43,12 +49,12 @@ export default async function Page({ params: paramsPromise }: Args) {
       <section className="py-16">
         <Wrapper>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Array.isArray(service.cases?.docs) &&
-              service.cases.docs.map((caseItem) => {
-                if (typeof caseItem === "number") {
+            {Array.isArray(service.projects?.docs) &&
+              service.projects.docs.map((projectItem) => {
+                if (typeof projectItem === "number") {
                   return null
                 }
-                return <CaseCard key={caseItem.id} case={caseItem} />
+                return <ProjectCard key={projectItem.id} project={projectItem} />
               })}
           </div>
         </Wrapper>

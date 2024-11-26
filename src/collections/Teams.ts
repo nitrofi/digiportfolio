@@ -2,9 +2,14 @@ import type { CollectionConfig } from "payload"
 
 import { anyone } from "../access/anyone"
 import { authenticated } from "../access/authenticated"
+import { slugField } from "@/fields/slug"
 
 export const Teams: CollectionConfig = {
   slug: "teams",
+  labels: {
+    singular: "Tiimi",
+    plural: "Tiimit",
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -21,10 +26,16 @@ export const Teams: CollectionConfig = {
       required: true,
     },
     {
-      name: "members",
-      type: "relationship",
-      relationTo: "users",
+      name: "teamUsers",
+      type: "join",
       hasMany: true,
+      collection: "users",
+      on: "team",
+      maxDepth: 2,
+      admin: {
+        description: "Tiimin jäsenet",
+      },
     },
+    ...slugField("title"),
   ],
 }

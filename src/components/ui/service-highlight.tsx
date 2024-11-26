@@ -15,7 +15,7 @@ const ServiceHighlight = ({ service }: { service: Service }) => {
 
         <div className="flex flex-wrap gap-4">
           {Array.isArray(service.tags?.docs) &&
-            service.tags.docs.map((tagItem: Tag, index) => (
+            service.tags.docs.slice(0, 4).map((tagItem: Tag, index) => (
               <Link
                 key={index}
                 href={`/tagit/${tagItem.id}`}
@@ -27,9 +27,9 @@ const ServiceHighlight = ({ service }: { service: Service }) => {
         </div>
       </div>
 
-      <Link href={`/services/${service.id}`} className="ml-auto">
+      <Link href={`/services/${service.slug}`} className="ml-auto">
         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-          <span className="text-2xl">→</span>
+          <span className="text-2xl text-dark">→</span>
         </div>
       </Link>
     </div>

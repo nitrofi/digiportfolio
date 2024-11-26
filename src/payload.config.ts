@@ -11,7 +11,7 @@ import { Media } from "./collections/Media"
 import { Users } from "./collections/Users"
 import { defaultLexical } from "@/fields/defaultLexical"
 import { Services } from "./collections/Services"
-import { Cases } from "./collections/Cases"
+import { Projects } from "./collections/Projects"
 import { Customers } from "./collections/Customers"
 import { Tags } from "./collections/Tags"
 
@@ -62,7 +62,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || "",
     },
   }),
-  collections: [Media, Teams, Users, Cases, Services, Customers, Tags],
+  collections: [Media, Teams, Users, Projects, Services, Customers, Tags],
   plugins: [
     // storage-adapter-placeholder
   ],

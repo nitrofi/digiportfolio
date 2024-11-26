@@ -1,8 +1,8 @@
-# Nitro Digitiimin Portfolio
+# Nitro Digital Team Portfolio
 
-Nitron digitiimin portfolio-sivusto, joka esittelee tiimin jäsenet, projektit ja osaamisen. Rakennettu käyttäen Next.js 15 ja PayloadCMS:ää.
+Portfolio website for Nitro's digital team, showcasing team members, projects, and tools.
 
-## Teknologiat
+## Technologies
 
 - Next.js 15 (App Router)
 - Payload CMS
@@ -10,38 +10,38 @@ Nitron digitiimin portfolio-sivusto, joka esittelee tiimin jäsenet, projektit j
 - Tailwind CSS
 - PostgreSQL
 
-## Kehitysympäristön pystytys
+## Development Environment Setup
 
-1. Kloonaa repositorio:
+1. Clone the repository:
 
    ```bash
    git clone git@github.com:nitrofi/digiportfolio.git
    cd nitro-portfolio
    ```
 
-2. Asenna riippuvuudet:
+2. Install dependencies:
 
    ```bash
    pnpm install
    ```
 
-3. Kopioi ympäristömuuttujat:
+3. Copy environment variables:
 
    ```bash
    cp .env.example .env
    ```
 
-4. Käynnistä kehityspalvelin:
+4. Start the development server:
 
    ```bash
-    pnpm dev
+   pnpm dev
    ```
 
-Sovellus pyörii osoitteessa [http://localhost:3000](http://localhost:3000)
+The application runs at [http://localhost:3000](http://localhost:3000)
 
-## Ympäristömuuttujat
+## Environment Variables
 
-Kopioi .env.example tiedosto nimellä .env ja täytä seuraavat muuttujat:
+Copy the .env.example file as .env and fill in the following variables:
 
 ```plaintext
 PAYLOAD_SECRET=your-secret-key
@@ -51,4 +51,8 @@ NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 
 ## PayloadCMS Admin
 
-Admin-paneeli: http://localhost:3000/admin
+Admin panel: [http://localhost:3000/admin]
+
+## Known issues
+
+- Duplicate slugs are not handled.

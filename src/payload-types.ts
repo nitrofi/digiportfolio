@@ -14,7 +14,7 @@ export interface Config {
     media: Media;
     teams: Team;
     users: User;
-    cases: Case;
+    projects: Project;
     services: Service;
     customers: Customer;
     tags: Tag;
@@ -23,22 +23,31 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    users: {
-      tags: 'tags';
+    teams: {
+      teamUsers: 'users';
     };
-    cases: {
+    users: {
+      projects: 'projects';
+    };
+    projects: {
       tags: 'tags';
     };
     services: {
-      cases: 'cases';
+      projects: 'projects';
       tags: 'tags';
+    };
+    customers: {
+      projects: 'projects';
+    };
+    tags: {
+      users: 'users';
     };
   };
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    cases: CasesSelect<false> | CasesSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     customers: CustomersSelect<false> | CustomersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
@@ -169,7 +178,12 @@ export interface Media {
 export interface Team {
   id: number;
   title: string;
-  members?: (number | User)[] | null;
+  teamUsers?: {
+    docs?: (number | User)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -179,12 +193,11 @@ export interface Team {
  */
 export interface User {
   id: number;
-  name?: string | null;
+  name: string;
   image?: (number | null) | Media;
-  title?: string | null;
-  team?: (number | null) | Team;
+  title: string;
   startedAt?: string | null;
-  bio?: {
+  bio: {
     root: {
       type: string;
       children: {
@@ -198,11 +211,15 @@ export interface User {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
-  tags?: {
-    docs?: (number | Tag)[] | null;
+  };
+  team?: (number | null) | Team;
+  tags?: (number | Tag)[] | null;
+  projects?: {
+    docs?: (number | Project)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -222,23 +239,28 @@ export interface Tag {
   id: number;
   title?: string | null;
   teams?: (number | null) | Team;
-  cases?: (number | Case)[] | null;
-  users?: (number | null) | User;
+  projects?: (number | Project)[] | null;
+  users?: {
+    docs?: (number | User)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   services?: (number | null) | Service;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cases".
+ * via the `definition` "projects".
  */
-export interface Case {
+export interface Project {
   id: number;
+  customer: number | Customer;
   title?: string | null;
   image?: (number | null) | Media;
-  customer?: (number | null) | Customer;
-  services?: (number | null) | Service;
   startedAt?: string | null;
+  isPublic?: boolean | null;
   introduction?: {
     root: {
       type: string;
@@ -253,14 +275,6 @@ export interface Case {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
-  complexity?: ('low' | 'medium' | 'high') | null;
-  wideness?: ('low' | 'medium' | 'high') | null;
-  isPublic?: boolean | null;
-  team?: (number | null) | User;
-  tags?: {
-    docs?: (number | Tag)[] | null;
-    hasNextPage?: boolean | null;
   } | null;
   keypoints?: {
     root: {
@@ -277,6 +291,16 @@ export interface Case {
     };
     [k: string]: unknown;
   } | null;
+  services?: (number | null) | Service;
+  complexity?: ('low' | 'medium' | 'high') | null;
+  wideness?: ('low' | 'medium' | 'high') | null;
+  tags?: {
+    docs?: (number | Tag)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  users?: (number | User)[] | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -289,6 +313,12 @@ export interface Customer {
   name: string;
   logo?: (number | null) | Media;
   website?: string | null;
+  projects?: {
+    docs?: (number | Project)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -300,14 +330,16 @@ export interface Service {
   id: number;
   title?: string | null;
   description?: string | null;
-  cases?: {
-    docs?: (number | Case)[] | null;
+  projects?: {
+    docs?: (number | Project)[] | null;
     hasNextPage?: boolean | null;
   } | null;
   tags?: {
     docs?: (number | Tag)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -331,8 +363,8 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-        relationTo: 'cases';
-        value: number | Case;
+        relationTo: 'projects';
+        value: number | Project;
       } | null)
     | ({
         relationTo: 'services';
@@ -477,7 +509,9 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface TeamsSelect<T extends boolean = true> {
   title?: T;
-  members?: T;
+  teamUsers?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -489,10 +523,13 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   image?: T;
   title?: T;
-  team?: T;
   startedAt?: T;
   bio?: T;
+  team?: T;
   tags?: T;
+  projects?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -505,21 +542,23 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cases_select".
+ * via the `definition` "projects_select".
  */
-export interface CasesSelect<T extends boolean = true> {
+export interface ProjectsSelect<T extends boolean = true> {
+  customer?: T;
   title?: T;
   image?: T;
-  customer?: T;
-  services?: T;
   startedAt?: T;
+  isPublic?: T;
   introduction?: T;
+  keypoints?: T;
+  services?: T;
   complexity?: T;
   wideness?: T;
-  isPublic?: T;
-  team?: T;
   tags?: T;
-  keypoints?: T;
+  users?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -530,8 +569,10 @@ export interface CasesSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  cases?: T;
+  projects?: T;
   tags?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -543,6 +584,9 @@ export interface CustomersSelect<T extends boolean = true> {
   name?: T;
   logo?: T;
   website?: T;
+  projects?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -553,9 +597,11 @@ export interface CustomersSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   title?: T;
   teams?: T;
-  cases?: T;
+  projects?: T;
   users?: T;
   services?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }

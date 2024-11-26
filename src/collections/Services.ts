@@ -1,7 +1,12 @@
+import { slugField } from "@/fields/slug"
 import { CollectionConfig } from "payload"
 
 export const Services: CollectionConfig = {
   slug: "services",
+  labels: {
+    singular: "Palvelu",
+    plural: "Palvelut",
+  },
   admin: {
     useAsTitle: "title",
   },
@@ -15,9 +20,9 @@ export const Services: CollectionConfig = {
       type: "textarea",
     },
     {
-      name: "cases",
+      name: "projects",
       type: "join",
-      collection: "cases",
+      collection: "projects",
       on: "services",
       hasMany: true,
       maxDepth: 2,
@@ -34,5 +39,6 @@ export const Services: CollectionConfig = {
         position: "sidebar",
       },
     },
+    ...slugField("title"),
   ],
 }
