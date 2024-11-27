@@ -33,7 +33,7 @@ export const Services: CollectionConfig = {
       collection: "tags",
       on: "services",
       hasMany: true,
-      maxDepth: 2,
+      maxDepth: 3,
       admin: {
         description: "Tags for the service",
         position: "sidebar",

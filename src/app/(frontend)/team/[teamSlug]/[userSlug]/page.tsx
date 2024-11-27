@@ -5,6 +5,7 @@ import { Wrapper } from "@/components/ui/wrapper"
 import { notFound } from "next/navigation"
 import TeamMemberHero from "@/components/ui/team-member-hero"
 import TeamMemberTags from "@/components/ui/team-member-tags"
+import ProjectCard from "@/components/ui/project-card"
 
 type Args = {
   params: Promise<{
@@ -32,6 +33,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!user) return notFound()
 
+  console.log(user.projects)
+
   return (
     <>
       <section className="bg-dark text-white py-16">
@@ -40,11 +43,21 @@ export default async function Page({ params: paramsPromise }: Args) {
           <TeamMemberTags user={user} />
         </Wrapper>
       </section>
-      <section className="py-16">
-        <Wrapper>
-          <h2 className="font-darmaGothic uppercase text-6xl font-black">Asiakasprojektit</h2>
-        </Wrapper>
-      </section>
+      {user.projects && (
+        <section className="py-16">
+          <Wrapper>
+            <h2 className="font-darmaGothic uppercase text-6xl font-black">Asiakasprojektit</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {user?.projects?.docs?.map((projectItem) => {
+                if (typeof projectItem === "number") {
+                  return null
+                }
+                return <ProjectCard key={projectItem.id} project={projectItem} />
+              })}
+            </div>
+          </Wrapper>
+        </section>
+      )}
     </>
   )
 }

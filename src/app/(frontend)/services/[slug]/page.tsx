@@ -25,7 +25,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         equals: slug,
       },
     },
-    depth: 2,
+    depth: 3,
   })
 
   const service = services.docs[0]

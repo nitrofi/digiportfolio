@@ -95,6 +95,7 @@ export const Users: CollectionConfig = {
               collection: "projects",
               on: "users",
               hasMany: true,
+              maxDepth: 3,
             },
           ],
         },
