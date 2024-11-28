@@ -45,7 +45,12 @@ const ProjectHero = ({ projectData }: { projectData: Project }) => {
         </div>
         <div className="flex flex-col gap-2 w-2/5">
           {projectData.keypoints && (
-            <RichText content={projectData.keypoints} enableGutter={false} enableProse={false} />
+            <RichText
+              className="flex flex-col gap-2"
+              content={projectData.keypoints}
+              enableGutter={false}
+              enableProse={false}
+            />
           )}
           <div className="flex gap-2 flex-wrap">
             {projectData.complexity && (

@@ -13,7 +13,12 @@ const TagHero = ({ tagData }: { tagData: Tag }) => {
               {tagData.title}
             </h1>
             {tagData.content && (
-              <RichText content={tagData.content} enableGutter={false} enableProse={false} />
+              <RichText
+                className="flex flex-col gap-2"
+                content={tagData.content}
+                enableGutter={false}
+                enableProse={false}
+              />
             )}
           </div>
           <div className="col-span-2 flex flex-col gap-2 max-md:hidden">
