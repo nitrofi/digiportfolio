@@ -1,4 +1,4 @@
-import { Project, Media } from "@/payload-types"
+import { Project, Media, Tag } from "@/payload-types"
 import React from "react"
 import RichText from "../payload-default/RichText"
 import Image from "next/image"
@@ -19,7 +19,7 @@ const ProjectHero = ({ projectData }: { projectData: Project }) => {
           />
         )}
       </div>
-      <Wrapper className="flex flex-row gap-4 py-16">
+      <Wrapper className="flex flex-row gap-8 py-16">
         <div className="flex flex-col gap-4 w-3/5 max-md:w-full">
           <h1 className="font-darmaGothic text-dark uppercase text-7xl font-black">
             {projectData.title}
@@ -64,6 +64,39 @@ const ProjectHero = ({ projectData }: { projectData: Project }) => {
             {!projectData.isPublic && (
               <div className="bg-red-600 py-2 px-5 rounded-full text-white">Ei julkinen refe</div>
             )}
+          </div>
+        </div>
+      </Wrapper>
+      <Wrapper>
+        <div>
+          <h2 className="font-darmaGothic text-dark uppercase text-6xl font-black">
+            Näin tämä tehtiin
+          </h2>
+          <div className="grid grid-cols-3 gap-4 my-4 max-md:grid-cols-1">
+            {projectData.tags?.docs &&
+              Object.entries(
+                projectData.tags.docs.reduce((groups: { [key: string]: Tag[] }, tag: Tag) => {
+                  const teamTitle =
+                    typeof tag.teams === "object" && tag.teams?.title ? tag.teams.title : "Muut"
+
+                  if (!groups[teamTitle]) {
+                    groups[teamTitle] = []
+                  }
+                  groups[teamTitle].push(tag)
+                  return groups
+                }, {}),
+              ).map(([teamTitle, tags]) => (
+                <div key={teamTitle} className="mb-4">
+                  <h3 className="text-xl font-bold mb-2">{teamTitle}</h3>
+                  <div className="flex gap-2 flex-wrap">
+                    {tags.map((tag: Tag) => (
+                      <div className="bg-lime py-2 px-5 rounded-full" key={tag.id}>
+                        {tag.title}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </Wrapper>

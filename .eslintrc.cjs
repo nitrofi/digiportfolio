@@ -1,8 +1,17 @@
 module.exports = {
-  extends: 'next',
+  extends: ["next", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  plugins: ["@typescript-eslint"],
+  parser: "@typescript-eslint/parser",
   root: true,
-  parserOptions: {
-    project: ['./tsconfig.json'],
-    tsconfigRootDir: __dirname,
+  rules: {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+      },
+    ],
   },
 }

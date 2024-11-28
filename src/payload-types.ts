@@ -240,11 +240,44 @@ export interface Tag {
   title?: string | null;
   teams?: (number | null) | Team;
   projects?: (number | Project)[] | null;
+  description?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  keypoints?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   users?: {
     docs?: (number | User)[] | null;
     hasNextPage?: boolean | null;
   } | null;
   services?: (number | null) | Service;
+  relatedTags?: (number | Tag)[] | null;
+  linkedTags?: (number | Tag)[] | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -598,8 +631,13 @@ export interface TagsSelect<T extends boolean = true> {
   title?: T;
   teams?: T;
   projects?: T;
+  description?: T;
+  content?: T;
+  keypoints?: T;
   users?: T;
   services?: T;
+  relatedTags?: T;
+  linkedTags?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;

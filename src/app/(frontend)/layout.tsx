@@ -4,8 +4,6 @@ import React from "react"
 
 import { LivePreviewListener } from "@/components/payload-default/LivePreviewListener"
 
-import { draftMode } from "next/headers"
-
 import "./globals.css"
 
 import Footer from "@/components/ui/footer"
@@ -13,8 +11,6 @@ import Header from "@/components/ui/header"
 import Breadcrumbs from "@/components/ui/breadcrumbs"
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

@@ -61,8 +61,8 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/tools" className="hover:text-lime transition-colors">
-                  Työkalut
+                <Link href="/tags" className="hover:text-lime transition-colors">
+                  Tagit
                 </Link>
               </li>
               <li>
@@ -106,11 +106,11 @@ const Header = () => {
                     </li>
                     <li>
                       <Link
-                        href="/tools"
+                        href="/tags"
                         onClick={() => setIsMenuOpen(false)}
                         className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
                       >
-                        Työkalut
+                        Tagit
                       </Link>
                     </li>
                     <li>
