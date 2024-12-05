@@ -57,7 +57,7 @@ const Header = () => {
               </li>
               <li>
                 <Link href="/services" className="hover:text-lime transition-colors">
-                  Tuotteet / Palvelut
+                  Tarjoama
                 </Link>
               </li>
               <li>
@@ -101,7 +101,7 @@ const Header = () => {
                         onClick={() => setIsMenuOpen(false)}
                         className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
                       >
-                        Tuotteet / Palvelut
+                        Tarjoama
                       </Link>
                     </li>
                     <li>

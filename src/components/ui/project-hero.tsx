@@ -4,6 +4,7 @@ import RichText from "../payload-default/RichText"
 import Image from "next/image"
 import { Wrapper } from "./wrapper"
 import Link from "next/link"
+import TagLink from "./tag-link"
 
 const ProjectHero = ({ projectData }: { projectData: Project }) => {
   return (
@@ -95,9 +96,7 @@ const ProjectHero = ({ projectData }: { projectData: Project }) => {
                   <h3 className="text-xl font-bold mb-2">{teamTitle}</h3>
                   <div className="flex gap-2 flex-wrap">
                     {tags.map((tag: Tag) => (
-                      <div className="bg-lime py-2 px-5 rounded-full" key={tag.id}>
-                        {tag.title}
-                      </div>
+                      <TagLink tag={tag} key={tag.id} className="!bg-lime" />
                     ))}
                   </div>
                 </div>

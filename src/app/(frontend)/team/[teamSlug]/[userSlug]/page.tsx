@@ -33,8 +33,6 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!user) return notFound()
 
-  console.log(user.projects)
-
   return (
     <>
       <section className="bg-dark text-white py-16">

@@ -24,9 +24,7 @@ export default async function Digitiimi() {
   return (
     <section className="bg-dark text-white py-16">
       <Wrapper>
-        <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">
-          Tuotteet/Palvelut
-        </h1>
+        <h1 className="font-darmaGothic text-lime uppercase text-7xl font-black">Tarjoama</h1>
         <p className="font-bold max-w-3xl">
           Ilman ihmisiä ei olisi luovaa hybriditoimistoa. Tutustu Nitron poikkeuksellisen luovaan,
           osaavaan ja hauskaan asiantuntijoiden joukkoon.

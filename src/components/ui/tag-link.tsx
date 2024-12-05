@@ -1,10 +1,14 @@
 import React from "react"
 import { Tag } from "@/payload-types"
 import Link from "next/link"
+import clsx from "clsx"
 
-const TagLink = ({ tag }: { tag: Tag }) => {
+const TagLink = ({ tag, className }: { tag: Tag; className?: string }) => {
   return (
-    <Link className="rounded-full bg-white text-black px-4 py-2" href={`/tags/${tag.slug}`}>
+    <Link
+      className={clsx("rounded-full bg-white text-black px-4 py-2", className)}
+      href={`/tags/${tag.slug}`}
+    >
       {tag.title}
     </Link>
   )

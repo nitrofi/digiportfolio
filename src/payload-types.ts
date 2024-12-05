@@ -214,6 +214,7 @@ export interface User {
   };
   team?: (number | null) | Team;
   tags?: (number | Tag)[] | null;
+  office?: ('Helsinki' | 'Turku') | null;
   projects?: {
     docs?: (number | Project)[] | null;
     hasNextPage?: boolean | null;
@@ -560,6 +561,7 @@ export interface UsersSelect<T extends boolean = true> {
   bio?: T;
   team?: T;
   tags?: T;
+  office?: T;
   projects?: T;
   slug?: T;
   slugLock?: T;
