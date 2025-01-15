@@ -61,11 +61,6 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/tags" className="hover:text-lime transition-colors">
-                  Tagit
-                </Link>
-              </li>
-              <li>
                 <Link href="/projects" className="hover:text-lime transition-colors">
                   Projektit
                 </Link>
@@ -92,7 +87,7 @@ const Header = () => {
                         onClick={() => setIsMenuOpen(false)}
                         className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
                       >
-                        Digitiimit
+                        Digitiimi
                       </Link>
                     </li>
                     <li>
@@ -102,15 +97,6 @@ const Header = () => {
                         className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
                       >
                         Tarjoama
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/tags"
-                        onClick={() => setIsMenuOpen(false)}
-                        className="block py-3 px-6 hover:bg-lime/10 transition-colors hover:text-lime"
-                      >
-                        Tagit
                       </Link>
                     </li>
                     <li>

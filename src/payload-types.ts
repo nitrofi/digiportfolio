@@ -178,6 +178,9 @@ export interface Media {
 export interface Team {
   id: number;
   title: string;
+  /**
+   * Tiimin jäsenet
+   */
   teamUsers?: {
     docs?: (number | User)[] | null;
     hasNextPage?: boolean | null;
@@ -214,7 +217,6 @@ export interface User {
   };
   team?: (number | null) | Team;
   tags?: (number | Tag)[] | null;
-  office?: ('Helsinki' | 'Turku') | null;
   projects?: {
     docs?: (number | Project)[] | null;
     hasNextPage?: boolean | null;
@@ -328,6 +330,9 @@ export interface Project {
   services?: (number | null) | Service;
   complexity?: ('low' | 'medium' | 'high') | null;
   wideness?: ('low' | 'medium' | 'high') | null;
+  /**
+   * Tags for the case
+   */
   tags?: {
     docs?: (number | Tag)[] | null;
     hasNextPage?: boolean | null;
@@ -368,6 +373,9 @@ export interface Service {
     docs?: (number | Project)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  /**
+   * Tags for the service
+   */
   tags?: {
     docs?: (number | Tag)[] | null;
     hasNextPage?: boolean | null;
@@ -561,7 +569,6 @@ export interface UsersSelect<T extends boolean = true> {
   bio?: T;
   team?: T;
   tags?: T;
-  office?: T;
   projects?: T;
   slug?: T;
   slugLock?: T;

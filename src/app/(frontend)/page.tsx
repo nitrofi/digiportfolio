@@ -7,16 +7,10 @@ import tiimilaiset from "../../../public/Tiimilaiset_pixels.svg"
 import tyokalut from "../../../public/Tyokalut_pixels.svg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
-import { getImageByTitle } from "./team/page"
 import ProjectCard from "@/components/ui/project-card"
 
 export default async function Home() {
   const payload = await getPayload({ config: configPromise })
-
-  const teams = await payload.find({
-    collection: "teams",
-    draft: false,
-  })
 
   const projects = await payload.find({
     collection: "projects",
@@ -35,29 +29,9 @@ export default async function Home() {
             osaavaan ja hauskaan asiantuntijoiden joukkoon.
           </p>
           <div className="flex justify-center mt-16 gap-10 max-md:flex-col">
-            <BoxLink color="lime" title="Digitiimit" image={tiimilaiset} link="/team" />
-            <BoxLink color="lime" title="Palvelut" image={palvelut} link="/services" />
+            <BoxLink color="lime" title="Digitiimi" image={tiimilaiset} link="/team" />
+            <BoxLink color="lime" title="Tarjoama" image={palvelut} link="/services" />
             <BoxLink color="lime" title="Tagit" image={tyokalut} link="/tags" />
-          </div>
-        </Wrapper>
-      </section>
-      <section className="my-16">
-        <Wrapper>
-          <h2 className="font-darmaGothic text-dark uppercase text-6xl font-black mb-4">
-            Digitiimit
-          </h2>
-          <div className="flex justify-center gap-10 max-md:flex-col">
-            {teams.docs?.map((doc) => {
-              return (
-                <BoxLink
-                  key={doc.id}
-                  color="dark"
-                  title={doc.title}
-                  image={getImageByTitle(doc.title)}
-                  link={`/team/${doc.slug}`}
-                />
-              )
-            })}
           </div>
         </Wrapper>
       </section>
