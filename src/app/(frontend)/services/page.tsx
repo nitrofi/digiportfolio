@@ -1,16 +1,7 @@
 import { Wrapper } from "@/components/ui/wrapper"
-import design from "../../../../public/Design_pixels.svg"
-import insight from "../../../../public/Insight_pixels.svg"
-import tech from "../../../../public/Tech_pixels.svg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
 import ServiceHighlight from "@/components/ui/service-highlight"
-
-export function getImageByTitle(title: string) {
-  if (title === "Tech") return tech
-  if (title === "Insight") return insight
-  if (title === "Design") return design
-}
 
 export default async function Digitiimi() {
   const payload = await getPayload({ config: configPromise })

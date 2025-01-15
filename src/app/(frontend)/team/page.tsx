@@ -8,7 +8,7 @@ import tech from "../../../../public/Tech_pixels.svg"
 import { getPayload } from "payload"
 import configPromise from "@payload-config"
 
-export function getImageByTitle(title: string) {
+function getImageByTitle(title: string) {
   if (title === "Tech") return tech
   if (title === "Insight") return insight
   if (title === "Design") return design
